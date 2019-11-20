@@ -44,9 +44,7 @@ class App extends Component {
 			defaultColDef: {
 				// Only allow editing of newly created rows
 				// Returns true if the row we are editing has an index greater than the length of our static data
-				editable: params => {
-					return params.node.rowIndex > this.state.rowData.length - 1;
-				}
+				editable: params => params.node.rowIndex > this.state.rowData.length - 1
 			}
 		};
 	}
