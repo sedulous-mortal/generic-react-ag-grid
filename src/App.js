@@ -40,7 +40,14 @@ class App extends Component {
 					model: 'Boxter',
 					price: 72000
 				}
-			]
+			],
+			defaultColDef: {
+				// Only allow editing of newly created rows
+				// Returns true if the row we are editing has an index greater than the length of our static data
+				editable: params => {
+					return params.node.rowIndex > this.state.rowData.length - 1;
+				}
+			}
 		};
 	}
 
@@ -50,9 +57,9 @@ class App extends Component {
 
 	handleButtonClick = () => {
 		const newItem = {
-			make: 'Porsche',
-			model: 'Boxter',
-			price: 72000
+			make: '',
+			model: '',
+			price: ''
 		};
 		this.gridApi.updateRowData({ add: [newItem] });
 	};
@@ -70,6 +77,7 @@ class App extends Component {
 					columnDefs={this.state.columnDefs}
 					rowData={this.state.rowData}
 					modules={AllCommunityModules}
+					defaultColDef={this.state.defaultColDef}
 					onGridReady={this.onGridReady}
 				></AgGridReact>
 				<button onClick={this.handleButtonClick}>Add Row</button>
